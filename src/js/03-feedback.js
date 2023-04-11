@@ -7,8 +7,7 @@ const refs = {
 };
 
 refs.form.addEventListener('submit', onFormSubmit);
-refs.email.addEventListener('input', throttle(onEmailChange, 500));
-refs.message.addEventListener('input', throttle(onMessageChange, 500));
+refs.form.addEventListener('input', throttle(onFormInput, 500));
 
 const KEY = 'feedback-form-state';
 const formData ={};
@@ -17,16 +16,19 @@ const formData ={};
 
 function onFormSubmit(evt) {
     evt.preventDefault();
+    if (refs.email.value === '' || refs.message.value === ''){
+        alert ('Please fill the form!');
+    }
     evt.target.reset();
     localStorage.removeItem(KEY);
 };
 
-// Email
-
-function onEmailChange(evt) {
+function onFormInput(evt) {
     formData[evt.target.name] = evt.target.value;
     localStorage.setItem(KEY, JSON.stringify(formData));
-};
+}
+
+// Email
 
 function populateLocalEmail () {
     try {
@@ -42,11 +44,6 @@ function populateLocalEmail () {
 populateLocalEmail();
 
 // Message
-
-function onMessageChange(evt) {
-    formData[evt.target.name] = evt.target.value;
-    localStorage.setItem(KEY, JSON.stringify(formData))
-};
 
 function populateLocalMessage() {
     try {
