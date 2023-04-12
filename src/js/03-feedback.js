@@ -6,11 +6,11 @@ const refs = {
     message: document.querySelector('textarea'),
 };
 
-refs.form.addEventListener('submit', onFormSubmit);
-refs.form.addEventListener('input', throttle(onFormInput, 500));
-
 const KEY = 'feedback-form-state';
 const formData ={};
+
+refs.form.addEventListener('submit', onFormSubmit);
+refs.form.addEventListener('input', throttle(onFormInput, 500));
 
 // Form
 
@@ -19,8 +19,8 @@ function onFormSubmit(evt) {
     if (refs.email.value === '' || refs.message.value === ''){
         alert ('Please fill the form!');
     }
-    evt.target.reset();
-    localStorage.removeItem(KEY);
+    evt.target.reset(),
+    localStorage.removeItem(KEY)
 };
 
 function onFormInput(evt) {
@@ -28,32 +28,51 @@ function onFormInput(evt) {
     localStorage.setItem(KEY, JSON.stringify(formData));
 }
 
-// Email
+if (formData) {
+    refs.email.value = formData.email;
+    refs.message.value = formData.message;
+ }
 
-function populateLocalEmail () {
+function populateFormData () {
     try {
-        const localEmail = JSON.parse(localStorage.getItem(KEY));
-        if (localEmail) {
-            refs.email.value = localEmail.email;
+        const localData = JSON.parse(localStorage.getItem(KEY));
+        if (localData) {
+            refs.email.value = localData.email;
+            refs.message.value = localData.message;
         }
     } catch (error) {
         console.log(error.name);
         console.log(error.message);
     }
 }
-populateLocalEmail();
+populateFormData();
+
+// Email
+
+// function populateLocalEmail () {
+//     try {
+//         const localEmail = JSON.parse(localStorage.getItem(KEY));
+//         if (localEmail) {
+//             refs.email.value = localEmail.email;
+//         }
+//     } catch (error) {
+//         console.log(error.name);
+//         console.log(error.message);
+//     }
+// }
+// populateLocalEmail();
 
 // Message
 
-function populateLocalMessage() {
-    try {
-        const localMessage = JSON.parse(localStorage.getItem(KEY));
-        if (localMessage) {
-            refs.message.value = localMessage.message;
-        }
-    } catch (error) {
-        console.log(error.name);
-        console.log(error.message);
-    }
-}
-populateLocalMessage(); 
+// function populateLocalMessage() {
+//     try {
+//         const localMessage = JSON.parse(localStorage.getItem(KEY));
+//         if (localMessage) {
+//             refs.message.value = localMessage.message;
+//         }
+//     } catch (error) {
+//         console.log(error.name);
+//         console.log(error.message);
+//     }
+// }
+// populateLocalMessage(); 
