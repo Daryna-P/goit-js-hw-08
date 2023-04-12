@@ -16,7 +16,11 @@ function onFormSubmit(evt) {
   evt.preventDefault();
   if (refs.email.value === '' || refs.message.value === '') {
     alert('Please fill the form!');
-  } else { evt.currentTarget.reset(), localStorage.removeItem(KEY), (formData = {}); }
+  } else {
+    console.log(formData),
+    evt.currentTarget.reset(), 
+    localStorage.removeItem(KEY), 
+    (formData = {}); }
  
 }
 
@@ -30,57 +34,11 @@ function populateFormData() {
   if (localData) {
     if (localData.email) {
       refs.email.value = localData.email;
+      formData.email = localData.email;
     }
     if (localData.message) {
       refs.message.value = localData.message;
+      formData.message = localData.message;
     }
   }
 }
-// function populateFormData () {
-//     try {
-//         const localData = JSON.parse(localStorage.getItem(KEY));
-//         if (localData) {
-//             if (localData.email) {refs.email.value = localData.email;}
-            
-//             if (localData.message) {refs.message.value = localData.message;}
-//         }
-//     } catch (error) {
-//         console.log(error.name);
-//         console.log(error.message);
-//     }
-// }
-
-// if (formData) {
-//     refs.email.value = formData.email;
-//     refs.message.value = formData.message;
-//  }
-
-// Email
-
-// function populateLocalEmail () {
-//     try {
-//         const localEmail = JSON.parse(localStorage.getItem(KEY));
-//         if (localEmail) {
-//             refs.email.value = localEmail.email;
-//         }
-//     } catch (error) {
-//         console.log(error.name);
-//         console.log(error.message);
-//     }
-// }
-// populateLocalEmail();
-
-// Message
-
-// function populateLocalMessage() {
-//     try {
-//         const localMessage = JSON.parse(localStorage.getItem(KEY));
-//         if (localMessage) {
-//             refs.message.value = localMessage.message;
-//         }
-//     } catch (error) {
-//         console.log(error.name);
-//         console.log(error.message);
-//     }
-// }
-// populateLocalMessage(); 
