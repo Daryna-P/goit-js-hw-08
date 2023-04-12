@@ -5,15 +5,12 @@ const refs = {
     email: document.querySelector('input'),
     message: document.querySelector('textarea'),
 };
-
 const KEY = 'feedback-form-state';
-const formData ={};
+let formData ={};
 populateFormData();
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.form.addEventListener('input', throttle(onFormInput, 500));
-
-// Form
 
 function onFormSubmit(evt) {
     evt.preventDefault();
@@ -21,15 +18,14 @@ function onFormSubmit(evt) {
         alert ('Please fill the form!');
     }
     evt.currentTarget.reset(),
-    localStorage.removeItem(KEY)
-};
+    localStorage.removeItem(KEY),
+    formData = {}
 
+};
 function onFormInput(evt) {
     formData[evt.target.name] = evt.target.value;
     localStorage.setItem(KEY, JSON.stringify(formData));
 }
-
-
 function populateFormData () {
     try {
         const localData = JSON.parse(localStorage.getItem(KEY));
