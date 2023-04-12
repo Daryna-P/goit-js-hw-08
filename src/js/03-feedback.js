@@ -30,8 +30,9 @@ function populateFormData () {
     try {
         const localData = JSON.parse(localStorage.getItem(KEY));
         if (localData) {
-            refs.email.value = localData.email;
-            refs.message.value = localData.message;
+            if (localData.email) {refs.email.value = localData.email;}
+            
+            if (localData.message) {refs.message.value = localData.message;}
         }
     } catch (error) {
         console.log(error.name);
