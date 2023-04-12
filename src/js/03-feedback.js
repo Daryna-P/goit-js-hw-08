@@ -8,6 +8,7 @@ const refs = {
 
 const KEY = 'feedback-form-state';
 const formData ={};
+populateFormData();
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.form.addEventListener('input', throttle(onFormInput, 500));
@@ -19,7 +20,7 @@ function onFormSubmit(evt) {
     if (refs.email.value === '' || refs.message.value === ''){
         alert ('Please fill the form!');
     }
-    evt.target.reset(),
+    evt.currentTarget.reset(),
     localStorage.removeItem(KEY)
 };
 
@@ -28,10 +29,6 @@ function onFormInput(evt) {
     localStorage.setItem(KEY, JSON.stringify(formData));
 }
 
-if (formData) {
-    refs.email.value = formData.email;
-    refs.message.value = formData.message;
- }
 
 function populateFormData () {
     try {
@@ -45,7 +42,11 @@ function populateFormData () {
         console.log(error.message);
     }
 }
-populateFormData();
+
+// if (formData) {
+//     refs.email.value = formData.email;
+//     refs.message.value = formData.message;
+//  }
 
 // Email
 
